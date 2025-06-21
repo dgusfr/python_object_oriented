@@ -44,7 +44,7 @@ A **abstração** consiste em representar um objeto real apenas com as informaç
 
 Por exemplo:
 
-<img src="images/abstraction.jpg" alt="Abstração" width="400">
+<img src="images/abstraction.jpg" alt="Abstração" width="500">
 
 - **Abstração Visual de um Carro**: Pode-se representar cor, modelo e forma, omitindo detalhes de engenharia.  
 
@@ -60,7 +60,7 @@ A **Classe** é o “molde” de um objeto, ela descreve quais dados (atributos)
 
 O **Objeto** é a realização concreta de uma classe, tendo seu próprio estado e podendo executar comportamentos definidos na classe.
 
-<img src="images/class.jpg" alt="classe" width="600">
+<img src="images/class.jpg" alt="classe" width="500">
 
 No caso de um carro, a Classe é o molde que descreve detalhadamente as características e comportamentos que o carro pode realizar.
 
@@ -70,7 +70,7 @@ No caso de um carro, a Classe é o molde que descreve detalhadamente as caracter
 
 **Atributos** são as características que armazenam o estado de um objeto. 
 
-<img src="images/atributes.jpg" alt="Atributos" width="600">
+<img src="images/atributes.jpg" alt="Atributos" width="500">
 
 No exemplo de um carro, os atributos poderiam ser “cor”, “modelo”, "ano".
 
@@ -92,7 +92,7 @@ Após definirmos a Classe, elementos e métodos do nosso objetos,  precisamos cr
 - **Instância**: É o objeto propriamente dito. Para a classe “Carro” um *Carro vermelho 2024* é sua instância.  
 - **Instanciação**: É o processo de criar a instância na memória.
 
-<img src="images/instantiation.jpg" alt="Instanciação" width="600">
+<img src="images/instantiation.jpg" alt="Instanciação" width="500">
 
 O molde (classe) descreve como o carro deve ser, mas o carro de verdade (instância) só existe após a construção (instanciação).
 
