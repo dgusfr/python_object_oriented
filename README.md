@@ -17,15 +17,10 @@
 
 - [Referências](#referências)
 
-## Introdução à Programação Orientada a Objetos
 
-A Programação Orientada a Objetos (POO) organiza o desenvolvimento de software em torno de **objetos**, representando entidades do mundo real ou conceitos abstratos. Esse paradigma torna o código mais intuitivo e modular, pois cada objeto encapsula dados e comportamentos de maneira clara.
+## Paradigma de Programação
 
----
-
-### 1. Paradigma de Programação
-
-Um **paradigma de programação** descreve como resolver problemas e estruturar programas. Existem vários paradigmas, como:
+Um **paradigma de programação** descreve como estruturar programas. Existem vários paradigmas, como:
 
 - **Procedural:** Enfatiza uma sequência de instruções, onde o programa é dividido em funções (exemplo: C).  
 - **Orientado a Objetos:** Foca em objetos que combinam dados e comportamentos (exemplos: Java, C++, Python).  
@@ -35,84 +30,74 @@ Um **paradigma de programação** descreve como resolver problemas e estruturar 
 
 ---
 
-### 3. Por que Usar POO?
+## Introdução à Programação Orientada a Objetos
 
-- **Legibilidade**: O código é organizado em “blocos” que correspondem a entidades do problema (por exemplo, “Carro”, “Cliente” etc.).  
-- **Reusabilidade**: As classes podem ser aproveitadas em diversas partes do sistema ou em outros projetos.  
-- **Manutenção Facilitada**: Alterações são centralizadas em cada classe, facilitando testes e correções.  
-
-*Exemplo de abordagem:*  
-Em um sistema que calcula a área de triângulos, a abordagem procedural exigiria várias variáveis e funções separadas para cada triângulo. Com POO, podemos ter uma classe “Triângulo” que agrupe os dados (lados) e comportamentos (cálculo da área) em um só lugar, tornando o código mais organizado.
+A Programação Orientada a Objetos (POO) organiza o desenvolvimento de software em torno de **objetos**, representando entidades do mundo real ou conceitos abstratos.
+Essa abordagem melhora a **Legibilidade**, **Reusabilidade** e **Manutenção** do código.
 
 ---
 
-### 4. Abstração
+## 1. Abstração
 
-A **abstração** consiste em representar um objeto real apenas com as informações necessárias ao contexto do sistema, ignorando detalhes supérfluos. Por exemplo:
+O primeiro passo para se programar utilizando POO é abstrair as informações necessárias para a utilização do nosso código.
+A **abstração** consiste em representar um objeto real apenas com as informações necessárias ao contexto do sistema, ignorando detalhes supérfluos. 
 
-<img src="images/abstraction.jpg" alt="Abstração" width="600">
+Por exemplo:
+
+<img src="images/abstraction.jpg" alt="Abstração" width="400">
 
 - **Abstração Visual de um Carro**: Pode-se representar cor, modelo e forma, omitindo detalhes de engenharia.  
+
 - **Abstração Funcional de um Carro**: Foca em características mecânicas, como sistema de freios, motor e embreagem, se o objetivo for simular o desempenho.
 
-Ao definir quais informações são mais relevantes, os atributos e métodos de uma classe variam conforme o nível de detalhe escolhido. Isso ajuda a reduzir a complexidade e a facilitar a manutenção.
+Ao definir quais informações são mais relevantes, reduzimos a complexidade e facilitamos a manutenção.
+
+---
+
+## 2. Classe e Objeto
+
+A **Classe** é o “molde” de um objeto, ela descreve quais dados (atributos) e comportamentos (métodos) o objeto deve ter.
+
+O **Objeto** é a realização concreta de uma classe, tendo seu próprio estado e podendo executar comportamentos definidos na classe.
+
+<img src="images/class.jpg" alt="classe" width="600">
+
+No caso de um carro, a Classe é o molde que descreve detalhadamente as características e comportamentos que o carro pode realizar.
+
+---
+
+## 3. Atributos
+
+**Atributos** são as características que armazenam o estado de um objeto. 
+
+<img src="images/atributes.jpg" alt="Atributos" width="600">
+
+No exemplo de um carro, os atributos poderiam ser “cor”, “modelo”, "ano".
+
+---
+
+## 4. Métodos
+
+Os **Métodos** são funções que definem os comportamentos de um objeto. 
+
+
+Por exemplo, um carro pode ter métodos como “acelerar”, “frear” ou “ligarMotor”, que manipulam ou consultam os atributos.
 
 ---
 
 ### 5. Instância e Instanciação
 
-- **Instância**: É o objeto propriamente dito. Se a classe “Carro” é o “molde”, então um *Carro vermelho 2024* é uma instância específica daquele molde.  
-- **Instanciação**: É o processo de criar a instância na memória. Em Java, quando usamos um operador para criar o objeto, esse espaço é alocado na memória e uma referência é retornada para ser usada no programa.
+Após definirmos a Classe, elementos e métodos do nosso objetos,  precisamos criar ele, para isso usamos a instanciação
+
+- **Instância**: É o objeto propriamente dito. Para a classe “Carro” um *Carro vermelho 2024* é sua instância.  
+- **Instanciação**: É o processo de criar a instância na memória.
 
 <img src="images/instantiation.jpg" alt="Instanciação" width="600">
 
-Visualize como se estivéssemos construindo uma carro: o molde (classe) descreve como o carro deve ser, mas o carro de verdade (instância) só existe após a construção (instanciação).
+O molde (classe) descreve como o carro deve ser, mas o carro de verdade (instância) só existe após a construção (instanciação).
 
 ---
 
-## Classe, Objeto, Atributos e Métodos
-
-A **POO** baseia-se em quatro conceitos essenciais:
-
-1. **Classe**  
-   É o “molde” de um objeto. Descreve quais dados (atributos) e comportamentos (métodos) o objeto deve ter.
-
-2. **Objeto**  
-   É a realização concreta de uma classe, criado em tempo de execução. Cada objeto tem seu próprio estado e pode executar comportamentos definidos na classe.
-
-<img src="images/class.jpg" alt="ClasseJava" width="600">
-
-3. **Atributos**  
-   São as características que armazenam o estado de um objeto. No exemplo de um carro, os atributos poderiam ser “cor”, “modelo”, “velocidade”.
-
-<img src="images/atributes.jpg" alt="Atributos" width="600">
-
-4. **Métodos**  
-   São funções que definem os comportamentos de um objeto. Por exemplo, um carro pode ter métodos como “acelerar”, “frear” ou “ligarMotor”, que manipulam ou consultam os atributos.
-
----
-
-### Exemplo Conceitual 
-
-- **Classe**: “Carro”
-  - **Atributos**: cor, modelo, velocidadeAtual
-  - **Métodos**: acelerar(), frear(), ligarMotor()
-
-- **Objeto**: Carro específico (por exemplo, um carro vermelho, modelo “XYZ”, velocidade atual de X km/h)
-  - Quando chamamos `acelerar()`, o objeto altera o valor do atributo “velocidadeAtual”
-  - Se chamamos `frear()`, a velocidade diminui.
-
-Nesse esquema, a classe descreve o que o carro pode ter e fazer; o objeto é um carro individual em uso. Os atributos guardam os dados (velocidade, cor), e os métodos definem os comportamentos (acelerar, frear).
-
----
----
-
-## 1. Conceito Central  
-POO modela o software em **objetos** que unem dados e comportamentos. Cada objeto pertence a uma **classe**, o molde que define atributos e métodos. Essa abordagem reflete o mundo real e simplifica a evolução do código.
-
----
-
-## 2. Classes e Objetos  
 
 ### Introdução Teórica  
 Uma classe define atributos (estado) e métodos (ações). Ao instanciar a classe, você obtém um objeto com seu próprio estado.
