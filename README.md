@@ -98,294 +98,53 @@ O molde (classe) descreve como o carro deve ser, mas o carro de verdade (instân
 
 ---
 
+### Classes e Objetos em Python
 
-### Introdução Teórica  
-Uma classe define atributos (estado) e métodos (ações). Ao instanciar a classe, você obtém um objeto com seu próprio estado.
-
-### Exemplo Prático  
-```python
-class Pessoa:
-    especie = "Humano"          # atributo de classe
-
-    def __init__(self, nome, idade):
-        self.nome = nome        # atributo de instância
-        self.idade = idade
-
-    def apresentar(self):
-        return f"Sou {self.nome}, tenho {self.idade} anos."
-
-p1 = Pessoa("Ana", 30)
-print(p1.apresentar())
-```
-
-### Explicação
-
-`especie` é compartilhado por todas as instâncias. `self.nome` e `self.idade` pertencem apenas ao objeto criado. O método `apresentar` usa esses atributos para construir a mensagem.
-
-### Aplicações no Mundo Real
-
-Modelar usuários, produtos e pedidos em sistemas web, encapsulando lógica de negócio dentro de cada classe.
-
-### Exercício
-
-Implemente a classe `Carro` com marca, modelo e ano. Adicione método `idade()` que devolve quantos anos o carro possui.
-
----
-
-## 3. Encapsulamento e Propriedades
-
-### Introdução Teórica
-
-Encapsular é ocultar detalhes internos. Use um sublinhado para indicar atributo “privado” e controle o acesso com `@property`.
-
-### Exemplo Prático
 
 ```python
-class Conta:
-    def __init__(self, titular, saldo):
-        self.titular = titular
-        self._saldo = saldo     # protegido
+# 1. Definição da Classe
+class Student:
+    # 2. Método Construtor (__init__)
+    def __init__(self, name):
+        # 3. Atribuição de Atributo
+        self.name = name
 
-    @property
-    def saldo(self):
-        return self._saldo
+# 4. Criação do Objeto (Instanciação)
+student_instance = Student("Diego") #
 
-    def depositar(self, valor):
-        if valor > 0:
-            self._saldo += valor
+# 5. Acesso e Impressão do Atributo
+print(student_instance.name)
 ```
 
-### Explicação
+O código define uma classe Student que funciona como um molde para criar objetos de estudantes. 
 
-`_saldo` não deve ser modificado fora da classe. A propriedade expõe apenas leitura. A regra de depósito garante integridade.
+O método __init__ é o construtor, executado automaticamente sempre que um novo objeto é criado, e sua função é inicializar os atributos do objeto. 
 
-### Aplicações
+O parâmetro self representa a instância específica do objeto que está sendo criada, permitindo que cada objeto Student tenha seus próprios dados. 
 
-Validação de dados sensíveis, como senhas ou limites de crédito.
-
-### Exercício
-
-Adicione a `Conta` o método `sacar`, validando se há saldo suficiente.
-
----
-
-## 4. Métodos de Classe e Estáticos
-
-### Introdução Teórica
-
-`@classmethod` recebe a classe como primeiro parâmetro (`cls`). Útil para fábricas de objetos. `@staticmethod` é uma função utilitária ligada à classe, mas sem acesso a `cls` nem `self`.
-
-### Exemplo Prático
+Ao executar Student("Diego"), um novo objeto é criado, e o método __init__ usa self para atribuir o valor "Diego" ao seu atributo name, que é então acessado e impresso na tela.
 
 ```python
-class Temperatura:
-    def __init__(self, celsius):
-        self.celsius = celsius
+class Student:
+    def __init__(self, name, notes):
+        self.name = name
+        self.notes = notes
 
-    @classmethod
-    def from_fahrenheit(cls, f):
-        return cls((f - 32) * 5/9)
+    def __str__(self):
+        return f"Aluno: {self.name}, Média: {self.average():.2f}"
 
-    @staticmethod
-    def kelvin_para_celsius(k):
-        return k - 273.15
+    def average(self):
+        return sum(self.notes) / len(self.notes)
+
+
+minhas_notas = [9.2, 8.5, 7.0]
+aluno = Student("Diego", minhas_notas)
+
+print(aluno)
 ```
 
----
+No código a cima implementamos o método average() que calcula a média das notes (em uma lista), e usamos o metodo __str__ formatando a saída para impressão. Assim, aluno = Student("Diego", minhas_notas) cria um objeto que "sabe" seu nome, suas notas e como calcular sua própria média.
 
-## 5. Herança
-
-### Introdução Teórica
-
-Uma classe filha herda atributos e métodos da classe pai, reduzindo duplicação e permitindo especialização.
-
-### Exemplo Prático
-
-```python
-class Funcionario(Pessoa):
-    def __init__(self, nome, idade, salario):
-        super().__init__(nome, idade)
-        self.salario = salario
-
-    def apresentar(self):
-        base = super().apresentar()
-        return f"{base} e ganho R${self.salario}."
-```
-
-### Explicação
-
-`super()` chama implementações da classe pai. O método é sobrescrito para incluir o salário.
-
-### Exercício
-
-Crie `Gerente` herdando de `Funcionario` e acrescente bônus anual calculado como 10 % do salário.
-
----
-
-## 6. Polimorfismo
-
-### Introdução Teórica
-
-Objetos diferentes podem responder à mesma mensagem. Em Python, o polimorfismo é natural: se o método existe, ele será chamado, independentemente do tipo.
-
-### Exemplo Prático
-
-```python
-def apresentar_entidade(entidade):
-    print(entidade.apresentar())
-
-apresentar_entidade(Funcionario("Bruno", 25, 3500))
-apresentar_entidade(Pessoa("Carla", 40))
-```
-
-### Aplicações
-
-Escrever código genérico que trabalha com qualquer objeto que respeite uma interface implícita.
-
----
-
-## 7. Composição
-
-### Introdução Teórica
-
-Composição combina objetos para formar estruturas mais complexas e favorece reutilização sobre herança.
-
-### Exemplo Prático
-
-```python
-class Endereco:
-    def __init__(self, rua, cidade):
-        self.rua = rua
-        self.cidade = cidade
-
-class Cliente(Pessoa):
-    def __init__(self, nome, idade, endereco):
-        super().__init__(nome, idade)
-        self.endereco = endereco
-```
-
-A classe `Cliente` contém um objeto `Endereco`, delegando a ele responsabilidades de endereço.
-
----
-
-## 8. Dunder (Magic) Methods
-
-### Introdução Teórica
-
-Dunder methods personalizam operadores e representações. Implementar `__add__`, `__len__`, `__repr__`, `__eq__` dá comportamento natural aos objetos.
-
-### Exemplo Prático
-
-```python
-class Vetor:
-    def __init__(self, x, y):
-        self.x, self.y = x, y
-
-    def __add__(self, outro):
-        return Vetor(self.x + outro.x, self.y + outro.y)
-
-    def __len__(self):
-        return int((self.x**2 + self.y**2) ** 0.5)
-
-    def __repr__(self):
-        return f"Vetor({self.x}, {self.y})"
-```
-
----
-
-## 9. Boas Práticas de Projeto
-
-* Mantenha cada classe focada em uma única responsabilidade.
-* Prefira composição quando a relação não for “é um”, mas “tem um”.
-* Documente contratos públicos com docstrings.
-* Escreva testes unitários para cada método crítico.
-
----
-
-## 10. Projeto de Exemplo: Sistema de Biblioteca (Resumo)
-
-Defina classes `Livro`, `Usuario`, `Emprestimo` e `Biblioteca`.
-`Biblioteca` possui listas de livros e usuários, métodos para cadastrar, buscar e emprestar.
-`Emprestimo` registra data de retirada e devolução, usando dunder `__repr__` para exibição clara.
-Implemente validações no método `emprestar` para verificar disponibilidade.
-Esse pequeno domínio mostra classes cooperando via composição, herança opcional para usuários especiais (Administrador).
-
----
-
-
-# Lista de Exercícios de POO
-
-
-## 1. Exercício 1 — Classe `Retângulo`
-
-Crie uma classe `Retangulo` que receba base e altura no construtor.  
-Implemente:
-
-- Método `area()` que devolve a área.  
-- Método `perimetro()` que devolve o perímetro.  
-- Dunder `__repr__` para exibir `Retangulo(base=..., altura=...)`.
-
-Escreva um script que leia dois retângulos, exiba área e perímetro de cada um e indique qual possui maior área.
-
----
-
-## 2. Exercício 2 — Herança e Polimorfismo em `Veículo`
-
-Crie a classe base `Veiculo` com atributo `velocidade`.  
-Crie duas classes filhas:
-
-- `Carro` com atributo adicional `portas`.  
-- `Moto` com atributo adicional `cilindradas`.
-
-Ambas devem sobrescrever o método `descrever()` herdado da classe pai para incluir seus detalhes.  
-Escreva uma função `mostrar_info(veiculo)` que receba qualquer veículo e chame `descrever()`, demonstrando polimorfismo.
-
----
-
-## 3. Exercício 3 — Dunder Methods em `Fracao`
-
-Implemente a classe `Fracao` com numerador e denominador.  
-Adicione:
-
-- Validação para denominador diferente de zero.  
-- `__add__`, `__sub__` e `__mul__` para somar, subtrair e multiplicar frações.  
-- `__repr__` retornando `"Fracao(n/d)"`.  
-
-Crie um script que leia duas frações do usuário e exiba os resultados das três operações.
-
----
-
-## 4. Projeto — Sistema de Biblioteca Simplificado
-
-**Objetivo**: modelar uma pequena biblioteca que gerencia livros e empréstimos.  
-
-### Requisitos
-
-1. **Classes principais**  
-   - `Livro` → título, autor, ano, total de exemplares e exemplares disponíveis.  
-   - `Usuario` → nome, e-mail e lista de livros emprestados.  
-   - `Biblioteca` → coleções de livros e usuários.
-
-2. **Métodos essenciais**  
-   - `Biblioteca.adicionar_livro(livro)`  
-   - `Biblioteca.cadastrar_usuario(usuario)`  
-   - `Biblioteca.emprestar(titulo, usuario)` com validações de disponibilidade.  
-   - `Biblioteca.devolver(titulo, usuario)` que atualiza status e datas.  
-
-3. **Relatórios**  
-   - Método para listar livros disponíveis ordenados por ano.  
-   - Método para listar usuários e quantidade de livros emprestados.
-
-4. **Extras sugeridos**  
-   - Dunder `__repr__` para `Livro` e `Usuario`.  
-   - Persistência simples em JSON para salvar e carregar dados.  
-   - Tratamento de exceções para casos de livro inexistente ou usuário não cadastrado.
-
-Implemente testes manuais em um arquivo `main.py` que:
-
-1. Cadastre três livros e dois usuários.  
-2. Realize dois empréstimos e uma devolução.  
-3. Exiba os relatórios.
 
 ---
 
