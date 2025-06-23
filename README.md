@@ -145,6 +145,84 @@ print(aluno)
 
 No código a cima implementamos o método average() que calcula a média das notes (em uma lista), e usamos o metodo __str__ formatando a saída para impressão. Assim, aluno = Student("Diego", minhas_notas) cria um objeto que "sabe" seu nome, suas notas e como calcular sua própria média.
 
+__str__: Para usuários. É o que aparece com print(). O objetivo é ser legível e amigável.
+print(aluno) chama aluno.__str__().
+
+__repr__: Para desenvolvedores. É usado para depuração (debug). O objetivo é ser uma representação técnica e inequívoca do objeto, idealmente um código que possa recriá-lo.
+repr(aluno) chama aluno.__repr__().
+
+Regra principal: Se o __str__ não for definido, o print() usará o __repr__ no lugar dele.
+
+**`@classmethod` e `@staticmethod`** são **decoradores** usados para definir métodos em classes Python que **não funcionam como métodos de instância** (que usam `self`).
+
+---
+### Decoradores de Classes
+
+#### `@classmethod`
+
+* O método recebe a **classe** como primeiro argumento, chamado de `cls`.
+* Pode acessar e modificar atributos da classe.
+
+Exemplo:
+
+```python
+class Pessoa:
+    contador = 0
+
+    def __init__(self, nome):
+        self.nome = nome
+        Pessoa.contador += 1
+
+    @classmethod
+    def criar_anonimo(cls):
+        return cls("Anônimo")  # retorna uma nova instância da classe
+
+    @classmethod
+    def total(cls):
+        return cls.contador
+```
+
+**Uso:**
+
+```python
+p1 = Pessoa("Diego")
+p2 = Pessoa.criar_anonimo()
+print(Pessoa.total())  # Saída: 2
+```
+
+---
+
+### 🔹 `@staticmethod`
+
+* O método **não recebe nem `self` nem `cls`**.
+* É um método comum, apenas agrupado dentro da classe por organização.
+* Não pode acessar nem modificar atributos da instância ou da classe.
+
+#### Exemplo:
+
+```python
+class Calculadora:
+    @staticmethod
+    def somar(a, b):
+        return a + b
+```
+
+**Uso:**
+
+```python
+print(Calculadora.somar(2, 3))  # Saída: 5
+```
+
+---
+
+### Resumo Rápido
+
+| Decorador       | Primeiro parâmetro | Acessa atributos de | Uso típico                            |
+| --------------- | ------------------ | ------------------- | ------------------------------------- |
+| `@classmethod`  | `cls`              | Classe              | Fábricas de objetos, contadores, etc. |
+| `@staticmethod` | nenhum             | Nenhum              | Funções utilitárias ligadas à classe  |
+
+Se quiser, posso gerar mais exemplos ou exercícios para fixar.
 
 ---
 
