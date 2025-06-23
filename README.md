@@ -158,12 +158,118 @@ Regra principal: Se o __str__ não for definido, o print() usará o __repr__ no 
 ---
 ### Decoradores de Classes
 
+
+#### Métodos de Classe e Métodos Estáticos
+
+Além dos métodos comuns (que usam `self`), o Python permite dois tipos especiais de métodos dentro de uma classe:
+
+* `@classmethod`: método que trabalha com a **classe** (não com o objeto).
+* `@staticmethod`: método que **não depende da classe nem do objeto**, apenas está ali por organização.
+
+---
+
 #### `@classmethod`
 
-* O método recebe a **classe** como primeiro argumento, chamado de `cls`.
-* Pode acessar e modificar atributos da classe.
+O **`@classmethod`** define um método que **recebe a própria classe como primeiro argumento**, chamado por convenção de `cls`.
 
-Exemplo:
+Isso permite criar **formas alternativas de construir objetos**, ou acessar/modificar atributos que pertencem à classe (e não a uma instância específica).
+
+---
+
+### Exemplo:
+
+```python
+class Pessoa:
+    contador = 0  # atributo da classe (compartilhado entre todos)
+
+    def __init__(self, nome):
+        self.nome = nome
+        Pessoa.contador += 1
+
+    @classmethod
+    def criar_padrao(cls):
+        return cls("Sem Nome")  # cria uma nova pessoa com nome padrão
+
+    @classmethod
+    def total_pessoas(cls):
+        return cls.contador
+```
+
+### Explicação:
+
+* `criar_padrao` é um método que **cria um novo objeto** com nome fixo.
+* `total_pessoas` retorna o total de objetos criados até agora.
+* `cls` é a **classe inteira** (como se fosse o molde), não um objeto específico.
+
+---
+
+### Usando:
+
+```python
+p1 = Pessoa("Diego")
+p2 = Pessoa.criar_padrao()
+
+print(p2.nome)                # Saída: Sem Nome
+print(Pessoa.total_pessoas())  # Saída: 2
+```
+
+---
+
+### Quando usar `@classmethod`?
+
+* Quando quiser **criar objetos de outras formas** (como um "construtor alternativo").
+* Quando quiser trabalhar com **dados da classe**.
+
+---
+
+## 6.2 `@staticmethod`
+
+O **`@staticmethod`** cria um método que **não recebe nem `self` nem `cls`**.
+Ou seja, ele **não usa nada da classe ou do objeto** — é apenas uma função comum dentro da classe por **organização**.
+
+---
+
+### Exemplo:
+
+```python
+class Calculadora:
+    @staticmethod
+    def somar(a, b):
+        return a + b
+```
+
+### Explicação:
+
+* `somar` não usa `self` nem `cls`.
+* É uma função que **poderia estar fora da classe**, mas está ali por questão de estrutura e legibilidade.
+
+---
+
+### Usando:
+
+```python
+print(Calculadora.somar(3, 4))  # Saída: 7
+```
+
+---
+
+### Quando usar `@staticmethod`?
+
+* Quando você quer **uma função utilitária**, relacionada à classe, mas que **não precisa acessar atributos** da classe ou do objeto.
+
+---
+
+## 6.3 Comparação Geral
+
+| Tipo de método  | Primeiro parâmetro | Acessa `self` ou `cls`? | Serve para...                              |
+| --------------- | ------------------ | ----------------------- | ------------------------------------------ |
+| Método comum    | `self`             | Sim, `self`             | Trabalhar com os **dados do objeto**       |
+| `@classmethod`  | `cls`              | Sim, `cls`              | Trabalhar com os **dados da classe**       |
+| `@staticmethod` | nenhum             | Não                     | Funções **independentes**, mas organizadas |
+
+---
+
+### Exemplo completo:
 
 ```python
 class Pessoa:
@@ -175,54 +281,21 @@ class Pessoa:
 
     @classmethod
     def criar_anonimo(cls):
-        return cls("Anônimo")  # retorna uma nova instância da classe
+        return cls("Anônimo")
 
-    @classmethod
-    def total(cls):
-        return cls.contador
-```
+    @staticmethod
+    def saudacao():
+        return "Olá! Seja bem-vindo."
 
-**Uso:**
-
-```python
 p1 = Pessoa("Diego")
 p2 = Pessoa.criar_anonimo()
-print(Pessoa.total())  # Saída: 2
+
+print(p2.nome)               # Anônimo
+print(Pessoa.saudacao())     # Olá! Seja bem-vindo.
+print(Pessoa.contador)       # 2
 ```
 
----
 
-### 🔹 `@staticmethod`
-
-* O método **não recebe nem `self` nem `cls`**.
-* É um método comum, apenas agrupado dentro da classe por organização.
-* Não pode acessar nem modificar atributos da instância ou da classe.
-
-#### Exemplo:
-
-```python
-class Calculadora:
-    @staticmethod
-    def somar(a, b):
-        return a + b
-```
-
-**Uso:**
-
-```python
-print(Calculadora.somar(2, 3))  # Saída: 5
-```
-
----
-
-### Resumo Rápido
-
-| Decorador       | Primeiro parâmetro | Acessa atributos de | Uso típico                            |
-| --------------- | ------------------ | ------------------- | ------------------------------------- |
-| `@classmethod`  | `cls`              | Classe              | Fábricas de objetos, contadores, etc. |
-| `@staticmethod` | nenhum             | Nenhum              | Funções utilitárias ligadas à classe  |
-
-Se quiser, posso gerar mais exemplos ou exercícios para fixar.
 
 ---
 
