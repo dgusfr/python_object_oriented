@@ -15,14 +15,17 @@ class Restaurant:
 
     @classmethod
     def list_of_restaurants(cls):
+        print(
+            f"{'Nome do restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Status'}"
+        )
         for restaurant in cls.restaurants:
             print(
-                f"{restaurant.name} - {restaurant.cuisine_type} - {restaurant.is_open}"
+                f"{restaurant.name.ljust(25)} - {restaurant.cuisine_type.ljust(25)} - {restaurant.is_open.ljust(25)}"
             )
 
     @property
     def is_open(self):
-        return "Open" if self.status else "Closed"
+        return "Open" if self._status else "Closed"
 
 
 coco_bambu = Restaurant("Coco Bambu", "Italian")
