@@ -4,7 +4,7 @@ class Restaurant:
     def __init__(self, name, cuisine_type):
         self.name = name
         self.cuisine_type = cuisine_type
-        self._status = False
+        self._status = True
         self.add_restaurant()
 
     def __str__(self):
@@ -27,8 +27,13 @@ class Restaurant:
     def is_open(self):
         return "Open" if self._status else "Closed"
 
+    def turn_status(self):
+        self._status = not self._status
+        print(f"{self.name} is now {'open' if self._status else 'closed'}.")
+
 
 coco_bambu = Restaurant("Coco Bambu", "Italian")
 abbraccio = Restaurant("Abbraccio", "Mediterranean")
+coco_bambu.turn_status()
 
 Restaurant.list_of_restaurants()
