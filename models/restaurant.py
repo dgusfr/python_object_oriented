@@ -4,7 +4,7 @@ from models.assessment import Assessment
 class Restaurant:
     restaurants = []
 
-    def __init__(self, name, cuisine_type, assessment):
+    def __init__(self, name, cuisine_type):
         self.name = name
         self.cuisine_type = cuisine_type
         self._status = True
@@ -20,11 +20,11 @@ class Restaurant:
     @classmethod
     def list_of_restaurants(cls):
         print(
-            f"{'Nome do restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Status'}"
+            f"{'Nome do restaurante'.ljust(25)} | {'Categoria'.ljust(25)} | {'Avaliação'.ljust(25)} |{'Status'}"
         )
         for restaurant in cls.restaurants:
             print(
-                f"{restaurant.name.ljust(25)} - {restaurant.cuisine_type.ljust(25)} - {restaurant.is_open.ljust(25)}"
+                f"{restaurant.name.ljust(25)} - {restaurant.cuisine_type.ljust(25)} - {restaurant.is_open.ljust(25) - restaurant.show_assessment.ljust(25)}"
             )
 
     @property
@@ -39,8 +39,13 @@ class Restaurant:
         assessment = Assessment(client, rate)
         self._assessment.append(assessment)
 
-    def show_assessment(self, assessments):
+    @property
+    def show_assessment(self):
         if not self._assessment:
             return "The restaurant has no reviews"
-        for assessment in _assessments:
-            print(assessment)
+        for assessment in self._assessment:
+            print(f"Client: {assessment.client}, Rate: {assessment.rate}")
+            sum_assessment += assessment.rate
+
+        average_assessments = sum_assessment / len(self._assessment)
+        print(f"Average assessment: {average_assessments:.2f}")
