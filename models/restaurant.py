@@ -24,7 +24,10 @@ class Restaurant:
         )
         for restaurant in cls.restaurants:
             print(
-                f"{restaurant.name.ljust(25)} - {restaurant.cuisine_type.ljust(25)} - {restaurant.is_open.ljust(25) - restaurant.show_assessment.ljust(25)}"
+                f"{restaurant.name.ljust(25)} | "
+                f"{restaurant.cuisine_type.ljust(25)} | "
+                f"{restaurant.show_assessment.ljust(25)} | "
+                f"{restaurant.is_open}"
             )
 
     @property
@@ -42,10 +45,7 @@ class Restaurant:
     @property
     def show_assessment(self):
         if not self._assessment:
-            return "The restaurant has no reviews"
-        for assessment in self._assessment:
-            print(f"Client: {assessment.client}, Rate: {assessment.rate}")
-            sum_assessment += assessment.rate
-
-        average_assessments = sum_assessment / len(self._assessment)
-        print(f"Average assessment: {average_assessments:.2f}")
+            return "No reviews"
+        sum_assessment = sum(a.rate for a in self._assessment)
+        average = sum_assessment / len(self._assessment)
+        return f"{average:.2f}"
