@@ -30,10 +30,3 @@ class Restaurant:
     def turn_status(self):
         self._status = not self._status
         print(f"{self.name} is now {'open' if self._status else 'closed'}.")
-
-
-coco_bambu = Restaurant("Coco Bambu", "Italian")
-abbraccio = Restaurant("Abbraccio", "Mediterranean")
-coco_bambu.turn_status()
-
-Restaurant.list_of_restaurants()
