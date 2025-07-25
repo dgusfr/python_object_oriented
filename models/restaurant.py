@@ -1,10 +1,14 @@
+from models.assessment import Assessment
+
+
 class Restaurant:
     restaurants = []
 
-    def __init__(self, name, cuisine_type):
+    def __init__(self, name, cuisine_type, assessment):
         self.name = name
         self.cuisine_type = cuisine_type
         self._status = True
+        self._assessment = []
         self.add_restaurant()
 
     def __str__(self):
@@ -30,3 +34,13 @@ class Restaurant:
     def turn_status(self):
         self._status = not self._status
         print(f"{self.name} is now {'open' if self._status else 'closed'}.")
+
+    def make_assessment(self, client, rate):
+        assessment = Assessment(client, rate)
+        self._assessment.append(assessment)
+
+    def show_assessment(self, assessments):
+        if not self._assessment:
+            return "The restaurant has no reviews"
+        for assessment in _assessments:
+            print(assessment)
