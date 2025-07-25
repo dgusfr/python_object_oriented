@@ -20,8 +20,14 @@ class Restaurant:
                 f"{restaurant.name} - {restaurant.cuisine_type} - {restaurant.status}"
             )
 
+    @property
+    def is_open(self):
+        return "Open" if self.status else "Closed"
+
 
 coco_bambu = Restaurant("Coco Bambu", "Italian", "Open")
 abbraccio = Restaurant("Abbraccio", "Mediterranean", "closed")
 
 Restaurant.list_of_restaurants()
+coco_bambu.is_open
+abbraccio.is_open
