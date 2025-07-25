@@ -13,8 +13,6 @@
   - [9. Boas Práticas de Projeto](#9-boas-práticas-de-projeto)
   - [10. Projeto de Exemplo: Sistema de Biblioteca (Resumo)](#10-projeto-de-exemplo-sistema-de-biblioteca-resumo)
 
-- [Lista de Exercícios de POO](#lista-de-exercícios-de-poo)
-
 - [Referências](#referências)
 
 
