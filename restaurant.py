@@ -4,6 +4,9 @@ class Restaurant:
         self.cuisine_type = cuisine_type
         self.status = status
 
+    def __str__(self):
+        return f"Restaurant Name: {self.name}, Cuisine Type: {self.cuisine_type}, Status: {self.status}"
+
 
 coco_bambu = Restaurant("Coco Bambu", "Italian", "Open")
 
