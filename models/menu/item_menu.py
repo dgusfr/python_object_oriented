@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class MenuItem(ABC):
     def __init__(self, name, price):
         self.name = name
@@ -7,5 +8,4 @@ class MenuItem(ABC):
 
     @abstractmethod
     def aplly_discount(self, discount):
-        
-
+        pass
