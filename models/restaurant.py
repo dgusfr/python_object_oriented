@@ -64,4 +64,7 @@ class Restaurant:
     def show_menu(self):
         print(f"Menu: {self.name}")
         for index, item in enumerate(self._menu, start=1):
-            print(f"{index}. {item.name} - {item.price:.2f}")
+            if hasattr(item, "description"):
+                print(f"{index}. {item.name} - {item.price:.2f} - {item.description}")
+            else:
+                print(f"{index}. {item.name} - {item.price:.2f}")
