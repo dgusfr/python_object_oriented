@@ -267,76 +267,36 @@ print(Calculadora.somar(3, 4))  # Saída: 7
 
 ---
 
-### Exemplo completo:
+##  Herança 
 
-```python
-class Pessoa:
-    contador = 0
-
-    def __init__(self, nome):
-        self.nome = nome
-        Pessoa.contador += 1
-
-    @classmethod
-    def criar_anonimo(cls):
-        return cls("Anônimo")
-
-    @staticmethod
-    def saudacao():
-        return "Olá! Seja bem-vindo."
-
-p1 = Pessoa("Diego")
-p2 = Pessoa.criar_anonimo()
-
-print(p2.nome)               # Anônimo
-print(Pessoa.saudacao())     # Olá! Seja bem-vindo.
-print(Pessoa.contador)       # 2
-```
-
-
+Herança é um mecanismo que permite uma classe (filha) reutilizar atributos e métodos de outra classe (pai), evitando repetição de código.
 
 ---
 
+### Exemplo:
 
-## Referências
+```python
+class Pessoa:
+    def __init__(self, nome):
+        self.nome = nome
 
-## Documentação Oficial do Python
-- https://docs.python.org/3/  
-- https://docs.python.org/3/tutorial/modules.html  
-- https://docs.python.org/3/py-modindex.html  
-- https://docs.python.org/3/tutorial/errors.html#exceptions  
-- https://docs.python.org/3/tutorial/classes.html  
+    def apresentar(self):
+        return f"Olá, meu nome é {self.nome}"
 
-## Tutoriais e Artigos Técnicos
-- **TutorialsPoint** – Sintaxe Básica  
-  - https://www.tutorialspoint.com/python/python_basic_syntax.htm  
-- **Programiz** – Conversão de Tipos  
-  - https://www.programiz.com/python-programming/type-conversion-and-casting  
-- **Real Python**  
-  - Variáveis: https://realpython.com/python-variables/  
-  - Exceções: https://realpython.com/python-exceptions/  
-  - Módulos e Pacotes: https://realpython.com/python-modules-packages/  
-  - Lambda: https://realpython.com/python-lambda/  
-  - POO: https://realpython.com/python3-object-oriented-programming/  
-- **DataCamp** – Decorators  
-  - https://www.datacamp.com/tutorial/decorators-python  
-- **PythonBasics** – Decorators  
-  - https://pythonbasics.org/decorators/  
-- **TutorialsTeacher** – Magic (Dunder) Methods  
-  - https://www.tutorialsteacher.com/python/magic-methods-in-python  
+# Estudante herda de Pessoa
+class Estudante(Pessoa):
+    def __init__(self, nome, curso):
+        super().__init__(nome)  # Chama o construtor da classe pai
+        self.curso = curso
 
-## W3Schools – Seção Python
-- Página principal: https://www.w3schools.com/python/  
-- Variáveis: https://www.w3schools.com/python/python_variables.asp  
-- Listas: https://www.w3schools.com/python/python_lists.asp  
-- Tuplas: https://www.w3schools.com/python/python_tuples.asp  
-- Sets: https://www.w3schools.com/python/python_sets.asp  
-- Dicionários: https://www.w3schools.com/python/python_dictionaries.asp  
-- Inheritance: https://www.w3schools.com/python/python_inheritance.asp  
-- Lambda: https://www.w3schools.com/python/python_lambda.asp  
-- Iterators: https://www.w3schools.com/python/python_iterators.asp  
+    def apresentar(self):
+        return f"Sou {self.nome} e estudo {self.curso}"
 
-## Livros
-- *Python Fluente* — Luciano Ramalho  
+p = Pessoa("João")
+e = Estudante("Ana", "Engenharia")
+
+print(p.apresentar())  # Olá, meu nome é João
+print(e.apresentar())  # Sou Ana e estudo Engenharia
+```
 
 ---
