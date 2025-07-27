@@ -166,7 +166,7 @@ Além dos métodos comuns (que usam `self`), o Python permite dois tipos especia
 
 ---
 
-#### `@classmethod`
+## 4.1 `@classmethod`
 
 O **`@classmethod`** define um método que **recebe a própria classe como primeiro argumento**, chamado por convenção de `cls`.
 
@@ -220,7 +220,7 @@ print(Pessoa.total_pessoas())  # Saída: 2
 
 ---
 
-## 6.2 `@staticmethod`
+## 4.2 `@staticmethod`
 
 O **`@staticmethod`** cria um método que **não recebe nem `self` nem `cls`**.
 Ou seja, ele **não usa nada da classe ou do objeto** — é apenas uma função comum dentro da classe por **organização**.
@@ -257,7 +257,7 @@ print(Calculadora.somar(3, 4))  # Saída: 7
 
 ---
 
-## 6.3 Comparação Geral
+## Comparação Geral
 
 | Tipo de método  | Primeiro parâmetro | Acessa `self` ou `cls`? | Serve para...                              |
 | --------------- | ------------------ | ----------------------- | ------------------------------------------ |
