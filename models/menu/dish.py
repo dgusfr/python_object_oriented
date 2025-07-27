@@ -1,3 +1,6 @@
+from models.menu.item_menu import MenuItem
+
+
 class Dish:
     def __init__(self, name, price, description):
         self.name = name
