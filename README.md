@@ -96,173 +96,196 @@ O molde (classe) descreve como o carro deve ser, mas o carro de verdade (instân
 
 ---
 
-### Classes e Objetos em Python
+# POO com Pyhton
 
+## Classes e Objetos 
+
+A **Classe** é o "molde" de um objeto. Ela define um conjunto de atributos (dados) e métodos (comportamentos) que suas instâncias, os objetos, terão. O **Objeto** é a realização concreta de uma classe, uma instância específica que ocupa um espaço na memória e possui os atributos e comportamentos definidos pela classe.
+
+**Exemplo de classe (`Restaurant`):**
+Este código define o que *todo* restaurante terá: um nome, um tipo de cozinha e um menu, além de ações como adicionar itens a esse menu.
+
+*models/restaurant.py*
 
 ```python
-# 1. Definição da Classe
-class Student:
-    # 2. Método Construtor (__init__)
-    def __init__(self, name):
-        # 3. Atribuição de Atributo
+class Restaurant:
+    def __init__(self, name, type_cuisine):
+        self.name = name.title()
+        self.type_cuisine = type_cuisine
+```
+
+**Criando um objeto (`coco_bambu`) a partir da classe `Restaurant`:**
+Aqui, `coco_bambu` é o objeto, uma instância específica da classe `Restaurant`. Ele tem seu próprio nome ("Coco Bambu") e pode ter seu próprio cardápio, independente de outros objetos de restaurante que possam ser criados.
+
+*app.py*
+
+```python
+from models.restaurant import Restaurant
+
+# Instanciando (criando) um objeto da classe Restaurant
+coco_bambu = Restaurant("Coco Bambu", "Frutos do Mar")
+
+# O arquivo app.py instancia (cria) um objeto a partir da classe Restaurant
+# e utiliza seus métodos para construir a lógica da aplicação.
+```
+
+---
+
+<br>
+<br>
+<br>
+
+___
+
+## Decoradores
+
+Decoradores em Python são funções que recebem outra função como argumento e retornam uma nova função com um comportamento modificado. Eles permitem adicionar funcionalidades antes ou depois da execução da função original, sem alterar seu código diretamente. São usados com a sintaxe **@decorador** acima da função que será modificada.
+
+**Exemplo de decorador (`@property`):**
+No nosso código, usamos o `@property` para transformar o método `price()` em um atributo. Isso nos permite acessar `item._price` de forma segura através de `item.price`, como se fosse uma variável pública, mas com a lógica de um método.
+
+*models/menu/item\_menu.py*
+
+```python
+class MenuItem:
+    def __init__(self, name, price):
         self.name = name
+        self._price = price # Atributo "protegido"
 
-# 4. Criação do Objeto (Instanciação)
-student_instance = Student("Diego") #
-
-# 5. Acesso e Impressão do Atributo
-print(student_instance.name)
+    @property
+    def price(self):
+        return self._price
 ```
 
-O código define uma classe Student que funciona como um molde para criar objetos de estudantes. 
+### Dunder Methods (Métodos Mágicos)
 
-O método __init__ é o construtor, executado automaticamente sempre que um novo objeto é criado, e sua função é inicializar os atributos do objeto. 
+Dunder (Double Underscore) Methods são métodos especiais com nomes que começam e terminam com dois underscores.
 
-O parâmetro self representa a instância específica do objeto que está sendo criada, permitindo que cada objeto Student tenha seus próprios dados. 
+  * **`__init__`**: É o construtor da classe. Ele é chamado automaticamente quando um novo objeto é criado (instanciado) e serve para inicializar os atributos do objeto.
 
-Ao executar Student("Diego"), um novo objeto é criado, e o método __init__ usa self para atribuir o valor "Diego" ao seu atributo name, que é então acessado e impresso na tela.
+    *models/restaurant.py*
+
+    ```python
+    class Restaurant:
+        def __init__(self, name, type_cuisine):
+            self.name = name.title()
+            self.type_cuisine = type_cuisine
+            self._active = False
+            self._menu = []
+    ```
+
+  * **`__str__` e `__repr__`**: Ambos criam representações em string de um objeto. 
+  A convenção é que `__str__` seja para o usuário final (legível e informal), enquanto `__repr__` seja para o desenvolvedor (inequívoco, idealmente recriando o objeto). 
+  Se `__str__` não for definido, o Python usará `__repr__` em seu lugar.
+
+    *models/menu/item\_menu.py*
+
+    ```python
+    class MenuItem:
+        # ... __init__ e @property price ...
+
+        def __str__(self):
+            # Usado quando você faz print(meu_objeto)
+            return f"{self.name}: R$ {self.price:.2f}"
+
+        def __repr__(self):
+            # Usado para depuração ou ao inspecionar o objeto
+            return f"MenuItem(name={self.name}, price={self.price})"
+    ```
+
+### Métodos de Classe, Estáticos e Propriedades
+
+  * **`@staticmethod`**: É um método que pertence a uma classe, mas não tem acesso à instância (`self`) nem à classe (`cls`). Ele funciona como uma função comum que está organizada dentro do escopo da classe por razões de lógica. É usado para criar funções utilitárias que têm relação com a classe, mas não dependem de nenhum de seus dados.
+
+    *Exemplo hipotético para `Restaurant`:*
+
+    ```python
+    class Restaurant:
+        # ... outros métodos ...
+
+        @staticmethod
+        def business_hours():
+            # Não precisa de 'self' ou 'cls', é apenas uma informação relacionada
+            return "De segunda a sexta, das 8h às 22h."
+
+    # Como usar:
+    print(Restaurant.business_hours())
+    ```
+
+  * **`@classmethod`**: Este método recebe a classe como o primeiro argumento (`cls`) em vez da instância (`self`). É comumente usado para criar "fábricas" (factory methods), que são maneiras alternativas de construir objetos da classe.
+
+    *Exemplo hipotético para `Restaurant`:*
+
+    ```python
+    class Restaurant:
+        # ... outros métodos ...
+
+        @classmethod
+        def from_dict(cls, data):
+            # 'cls' aqui é a própria classe Restaurant
+            # Este método cria uma instância de restaurante a partir de um dicionário
+            return cls(data['name'], data['type_cuisine'])
+
+    # Como usar:
+    restaurant_data = {'name': 'A Baianeira', 'type_cuisine': 'Baiana'}
+    a_baianeira = Restaurant.from_dict(restaurant_data)
+    ```
+
+---
+
+<br>
+<br>
+<br>
+
+___
+
+## Herança
+
+Herança é um pilar da Programação Orientada a Objetos que permite que uma classe (chamada de classe filha ou subclasse) herde atributos e métodos de outra classe (classe mãe ou superclasse).
+
+**Exemplo com as classes `MenuItem`, `Dish` e `Drink`:**
+
+Primeiro, temos a classe mãe `MenuItem`, que define o que todo item do menu deve ter: um nome e um preço.
+
+*models/menu/item\_menu.py*
 
 ```python
-class Student:
-    def __init__(self, name, notes):
+class MenuItem:
+    def __init__(self, name, price):
         self.name = name
-        self.notes = notes
+        self._price = price
 
-    def __str__(self):
-        return f"Aluno: {self.name}, Média: {self.average():.2f}"
-
-    def average(self):
-        return sum(self.notes) / len(self.notes)
-
-
-minhas_notas = [9.2, 8.5, 7.0]
-aluno = Student("Diego", minhas_notas)
-
-print(aluno)
+    @property
+    def price(self):
+        return self._price
 ```
 
-No código a cima implementamos o método average() que calcula a média das notes (em uma lista), e usamos o metodo __str__ formatando a saída para impressão. Assim, aluno = Student("Diego", minhas_notas) cria um objeto que "sabe" seu nome, suas notas e como calcular sua própria média.
+Agora, criamos as classes filhas `Drink` e `Dish`. Elas herdam de `MenuItem` e, portanto, já possuem os atributos `name` e `price`. Usamos `super().__init__(name, price)` para chamar o construtor da classe mãe e garantir que esses atributos sejam inicializados. Em seguida, cada classe filha adiciona seus próprios atributos e métodos específicos.
 
-__str__: Para usuários. É o que aparece com print(). O objetivo é ser legível e amigável.
-print(aluno) chama aluno.__str__().
-
-__repr__: Para desenvolvedores. É usado para depuração (debug). O objetivo é ser uma representação técnica e inequívoca do objeto, idealmente um código que possa recriá-lo.
-repr(aluno) chama aluno.__repr__().
-
-Regra principal: Se o __str__ não for definido, o print() usará o __repr__ no lugar dele.
-
-**`@classmethod` e `@staticmethod`** são **decoradores** usados para definir métodos em classes Python que **não funcionam como métodos de instância** (que usam `self`).
-
----
-### Decoradores de Classes
-
-
-#### Métodos de Classe e Métodos Estáticos
-
-Além dos métodos comuns (que usam `self`), o Python permite dois tipos especiais de métodos dentro de uma classe:
-
-* `@classmethod`: método que trabalha com a **classe** (não com o objeto).
-* `@staticmethod`: método que **não depende da classe nem do objeto**, apenas está ali por organização.
-
----
-
-## 4.1 `@classmethod`
-
-O **`@classmethod`** define um método que **recebe a própria classe como primeiro argumento**, chamado por convenção de `cls`.
-
-Isso permite criar **formas alternativas de construir objetos**, ou acessar/modificar atributos que pertencem à classe (e não a uma instância específica).
-
----
-
-### Exemplo:
+*models/menu/drink.py*
 
 ```python
-class Pessoa:
-    contador = 0  # atributo da classe (compartilhado entre todos)
+from models.menu.item_menu import MenuItem
 
-    def __init__(self, nome):
-        self.nome = nome
-        Pessoa.contador += 1
-
-    @classmethod
-    def criar_padrao(cls):
-        return cls("Sem Nome")  # cria uma nova pessoa com nome padrão
-
-    @classmethod
-    def total_pessoas(cls):
-        return cls.contador
+class Drink(MenuItem):
+    def __init__(self, name, price):
+        # Chama o construtor da classe mãe (MenuItem)
+        super().__init__(name, price)
+        # Adiciona um atributo específico da classe Drink
+        self.type = "Bebida"
 ```
 
-### Explicação:
-
-* `criar_padrao` é um método que **cria um novo objeto** com nome fixo.
-* `total_pessoas` retorna o total de objetos criados até agora.
-* `cls` é a **classe inteira** (como se fosse o molde), não um objeto específico.
-
----
-
-### Usando:
+*models/menu/dish.py*
 
 ```python
-p1 = Pessoa("Diego")
-p2 = Pessoa.criar_padrao()
+from models.menu.item_menu import MenuItem
 
-print(p2.nome)                # Saída: Sem Nome
-print(Pessoa.total_pessoas())  # Saída: 2
+class Dish(MenuItem):
+    def __init__(self, name, price):
+        # Chama o construtor da classe mãe (MenuItem)
+        super().__init__(name, price)
+        # Adiciona um atributo específico da classe Dish
+        self.type = "Prato"
 ```
 
----
-
-### Quando usar `@classmethod`?
-
-* Quando quiser **criar objetos de outras formas** (como um "construtor alternativo").
-* Quando quiser trabalhar com **dados da classe**.
-
----
-
-## 4.2 `@staticmethod`
-
-O **`@staticmethod`** cria um método que **não recebe nem `self` nem `cls`**.
-Ou seja, ele **não usa nada da classe ou do objeto** — é apenas uma função comum dentro da classe por **organização**.
-
----
-
-### Exemplo:
-
-```python
-class Calculadora:
-    @staticmethod
-    def somar(a, b):
-        return a + b
-```
-
-### Explicação:
-
-* `somar` não usa `self` nem `cls`.
-* É uma função que **poderia estar fora da classe**, mas está ali por questão de estrutura e legibilidade.
-
----
-
-### Usando:
-
-```python
-print(Calculadora.somar(3, 4))  # Saída: 7
-```
-
----
-
-### Quando usar `@staticmethod`?
-
-* Quando você quer **uma função utilitária**, relacionada à classe, mas que **não precisa acessar atributos** da classe ou do objeto.
-
----
-
-## Comparação Geral
-
-| Tipo de método  | Primeiro parâmetro | Acessa `self` ou `cls`? | Serve para...                              |
-| --------------- | ------------------ | ----------------------- | ------------------------------------------ |
-| Método comum    | `self`             | Sim, `self`             | Trabalhar com os **dados do objeto**       |
-| `@classmethod`  | `cls`              | Sim, `cls`              | Trabalhar com os **dados da classe**       |
-| `@staticmethod` | nenhum             | Não                     | Funções **independentes**, mas organizadas |
-
----
+Dessa forma, tanto `Drink` quanto `Dish` reutilizam a lógica de `MenuItem`, evitando a repetição de código e mantendo uma estrutura organizada. Um objeto `Drink`, por exemplo, terá acesso à propriedade `price` definida em `MenuItem` e ao atributo `type` definido em sua própria classe.
