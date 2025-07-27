@@ -6,14 +6,6 @@
   - [2. Classes e Objetos](#2-classes-e-objetos)
   - [3. Encapsulamento e Propriedades](#3-encapsulamento-e-propriedades)
   - [4. Métodos de Classe e Estáticos](#4-métodos-de-classe-e-estáticos)
-  - [5. Herança](#5-herança)
-  - [6. Polimorfismo](#6-polimorfismo)
-  - [7. Composição](#7-composição)
-  - [8. Dunder (Magic) Methods](#8-dunder-magic-methods)
-  - [9. Boas Práticas de Projeto](#9-boas-práticas-de-projeto)
-  - [10. Projeto de Exemplo: Sistema de Biblioteca (Resumo)](#10-projeto-de-exemplo-sistema-de-biblioteca-resumo)
-
-- [Referências](#referências)
 
 
 ## Paradigma de Programação
@@ -264,39 +256,5 @@ print(Calculadora.somar(3, 4))  # Saída: 7
 | Método comum    | `self`             | Sim, `self`             | Trabalhar com os **dados do objeto**       |
 | `@classmethod`  | `cls`              | Sim, `cls`              | Trabalhar com os **dados da classe**       |
 | `@staticmethod` | nenhum             | Não                     | Funções **independentes**, mas organizadas |
-
----
-
-##  Herança 
-
-Herança é um mecanismo que permite uma classe (filha) reutilizar atributos e métodos de outra classe (pai), evitando repetição de código.
-
----
-
-### Exemplo:
-
-```python
-class Pessoa:
-    def __init__(self, nome):
-        self.nome = nome
-
-    def apresentar(self):
-        return f"Olá, meu nome é {self.nome}"
-
-# Estudante herda de Pessoa
-class Estudante(Pessoa):
-    def __init__(self, nome, curso):
-        super().__init__(nome)  # Chama o construtor da classe pai
-        self.curso = curso
-
-    def apresentar(self):
-        return f"Sou {self.nome} e estudo {self.curso}"
-
-p = Pessoa("João")
-e = Estudante("Ana", "Engenharia")
-
-print(p.apresentar())  # Olá, meu nome é João
-print(e.apresentar())  # Sou Ana e estudo Engenharia
-```
 
 ---
