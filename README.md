@@ -6,6 +6,14 @@
   - [2. Classes e Objetos](#2-classes-e-objetos)
   - [3. Encapsulamento e Propriedades](#3-encapsulamento-e-propriedades)
   - [4. Métodos de Classe e Estáticos](#4-métodos-de-classe-e-estáticos)
+  - [5. Herança](#5-herança)
+  - [6. Polimorfismo](#6-polimorfismo)
+  - [7. Composição](#7-composição)
+  - [8. Dunder (Magic) Methods](#8-dunder-magic-methods)
+  - [9. Boas Práticas de Projeto](#9-boas-práticas-de-projeto)
+  - [10. Projeto de Exemplo: Sistema de Biblioteca (Resumo)](#10-projeto-de-exemplo-sistema-de-biblioteca-resumo)
+
+- [Referências](#referências)
 
 
 ## Paradigma de Programação

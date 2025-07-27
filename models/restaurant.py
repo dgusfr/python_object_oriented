@@ -1,4 +1,6 @@
 from models.assessment import Assessment
+from models.menu.drink import Drink
+from models.menu.dish import Dish
 
 
 class Restaurant:
@@ -51,8 +53,12 @@ class Restaurant:
         average = sum_assessment / len(self._assessment)
         return f"{average:.2f}"
 
-    def add_drink(self, drink):
-        self._menu.append(drink)
-
-    def add_dish(self, dish):
-        self._menu.append(dish)
+    def add_item(self, item):
+        if isinstance(item, Drink):
+            self._menu.append(item)
+            print(f"{item.nome} added to the drink menu of {self.name}.")
+        elif isinstance(item, Dish):
+            self._menu.append(item)
+            print(f"{item.name} added to the dish menu of {self.name}.")
+        else:
+            print("Item type not recognized.")
