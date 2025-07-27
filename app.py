@@ -17,6 +17,9 @@ pizza = Dish(
     "Traditional pizza with tomato sauce, mozzarella cheese, and fresh basil.",
 )
 
+coco_bambu.add_drink(pizza)
+abbraccio.add_dish(juice)
+
 
 def main():
     Restaurant.list_of_restaurants()

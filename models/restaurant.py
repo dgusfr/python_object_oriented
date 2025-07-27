@@ -9,6 +9,7 @@ class Restaurant:
         self.cuisine_type = cuisine_type
         self._status = True
         self._assessment = []
+        self._menu = []
         self.add_restaurant()
 
     def __str__(self):
@@ -49,3 +50,9 @@ class Restaurant:
         sum_assessment = sum(a.rate for a in self._assessment)
         average = sum_assessment / len(self._assessment)
         return f"{average:.2f}"
+
+    def add_drink(self, drink):
+        self._menu.append(drink)
+
+    def add_dish(self, dish):
+        self._menu.append(dish)
