@@ -53,7 +53,7 @@ class Restaurant:
         average = sum_assessment / len(self._assessment)
         return f"{average:.2f}"
 
-    def add_item(self, item):
+    def add_item_menu(self, item):
         if isinstance(item, Drink):
             self._menu.append(item)
             print(f"{item.nome} added to the drink menu of {self.name}.")
