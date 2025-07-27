@@ -289,3 +289,88 @@ class Dish(MenuItem):
 ```
 
 Dessa forma, tanto `Drink` quanto `Dish` reutilizam a lógica de `MenuItem`, evitando a repetição de código e mantendo uma estrutura organizada. Um objeto `Drink`, por exemplo, terá acesso à propriedade `price` definida em `MenuItem` e ao atributo `type` definido em sua própria classe.
+
+---
+
+<br>
+<br>
+<br>
+
+___
+
+## Polimorfismo
+
+**Polimorfismo** (do grego, "muitas formas") é a capacidade de objetos de diferentes classes responderem à mesma chamada de método, cada um de sua própria maneira. 
+
+Em outras palavras, um mesmo método pode ter comportamentos diferentes dependendo da classe do objeto que o está executando. 
+
+**Exemplo com `apply_discount`:**
+
+A classe `MenuItem` define que todo item do menu *deve* ter um método `apply_discount`, mas não diz *como* ele funciona. 
+
+As classes filhas, `Drink` e `Dish`, herdam essa obrigação e implementam o método de formas diferentes: 
+
+`Drink` aplica um desconto de 5%, enquanto `Dish` aplica 3%. 
+
+Isso é polimorfismo em ação: o mesmo método `apply_discount` se comporta de maneira distinta para cada tipo de objeto.
+
+*drink.py*
+
+```python
+class Drink(MenuItem):
+    # ...
+    def apply_discount(self):
+        # Implementação específica para Bebida: desconto de 5%
+        self._price -= self._price * 0.05
+```
+
+*dish.py*
+
+```python
+class Dish(MenuItem):
+    # ...
+    def apply_discount(self):
+        # Implementação específica para Prato: desconto de 3%
+        self._price -= self._price * 0.03
+```
+
+-----
+
+### Métodos Abstratos
+
+Um **método abstrato** é um método declarado em uma classe mãe (chamada de Classe Base Abstrata ou ABC), mas que não possui implementação. 
+
+Ao decorar um método com `@abstractmethod`, você **obriga** todas as classes filhas a implementarem sua própria versão daquele método. Se uma classe filha não o fizer, o Python gerará um erro, impedindo a criação de objetos daquela classe.
+
+Uma classe que contém pelo menos um método abstrato não pode ser instanciada diretamente. Ela serve como um "contrato" ou um "molde", garantindo que todas as subclasses sigam uma estrutura específica.
+
+**Quando usar:** Use métodos abstratos quando um comportamento é comum a todas as classes filhas, mas a implementação desse comportamento é tão específica para cada uma que não faz sentido definir uma lógica padrão na classe mãe. 
+
+No nosso exemplo, todo `MenuItem` deve ter um desconto aplicável, mas o valor do desconto só faz sentido quando sabemos se é um `prato` ou uma `bebida`.
+
+*models/menu/item\_menu.py*
+
+```python
+from abc import ABC, abstractmethod
+
+# Ao herdar de ABC, a classe se torna uma Classe Base Abstrata
+class MenuItem(ABC):
+    def __init__(self, name, price):
+        self.name = name
+        self._price = price
+
+    # Este decorador força as classes filhas a implementarem este método
+    @abstractmethod
+    def apply_discount(self):
+        # A implementação é vazia, pois é apenas um contrato
+        pass
+```
+
+---
+
+<br>
+<br>
+<br>
+
+___
+
