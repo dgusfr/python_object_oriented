@@ -20,6 +20,9 @@ pizza = Dish(
 coco_bambu.add_item_menu(juice)
 coco_bambu.add_item_menu(pizza)
 
+juice.aplly_discount()
+pizza.aplly_discount()
+
 
 def main():
     coco_bambu.show_menu()

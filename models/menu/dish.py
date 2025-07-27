@@ -9,5 +9,9 @@ class Dish(MenuItem):
     def __str__(self):
         return self.nome
 
-    def apply_discount(self):
-        self._price -= self.price * 0.3
+    @property
+    def price(self):
+        return self._price
+
+    def aplly_discount(self):
+        self._price -= self._price * 0.03
