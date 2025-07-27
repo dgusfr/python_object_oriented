@@ -1,4 +1,7 @@
-class Bebida:
+from models.menu.item_menu import MenuItem
+
+
+class Drink(MenuItem):
     def __init__(self, nome, preco):
-        self.nome = nome
-        self.preco = preco
+        super().__init__(nome, preco)
+        self.type = "Bebida"
