@@ -61,8 +61,7 @@ class Restaurant:
         else:
             print("Item type not recognized.")
 
-    @property
     def show_menu(self):
         print(f"Menu: {self.name}")
         for index, item in enumerate(self._menu, start=1):
-            print(f"{index}. {item.name} - {item.price:.2f} ({item.type})")
+            print(f"{index}. {item.name} - {item.price:.2f}")
