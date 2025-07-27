@@ -18,10 +18,11 @@ pizza = Dish(
 )
 
 coco_bambu.add_item_menu(juice)
+coco_bambu.add_item_menu(pizza)
 
 
 def main():
-    Restaurant.list_of_restaurants()
+    coco_bambu.show_menu()
 
 
 if __name__ == "__main__":

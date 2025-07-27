@@ -56,9 +56,13 @@ class Restaurant:
     def add_item_menu(self, item):
         if isinstance(item, Drink):
             self._menu.append(item)
-            print(f"{item.nome} added to the drink menu of {self.name}.")
         elif isinstance(item, Dish):
             self._menu.append(item)
-            print(f"{item.name} added to the dish menu of {self.name}.")
         else:
             print("Item type not recognized.")
+
+    @property
+    def show_menu(self):
+        print(f"Menu: {self.name}")
+        for index, item in enumerate(self._menu, start=1):
+            print(f"{index}. {item.name} - {item.price:.2f} ({item.type})")
